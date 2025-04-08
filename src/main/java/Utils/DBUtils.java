@@ -30,6 +30,7 @@ public class DBUtils {
 		return instance;
 	}
 	
+	
 //	select M.M_NO,M.M_NAME,P.P_NAME,M.P_SCHOOL,M.M_JUMIN,M.M_CITY,P.P_TEL1,P.P_TEL2,P.P_TEL3
 //	from TBL_MEMBER_202005 M
 //	join TBL_PARTY_202005 P
@@ -138,6 +139,7 @@ public class DBUtils {
 		return list;
 		
 	}
+	
 	
 	
 }
