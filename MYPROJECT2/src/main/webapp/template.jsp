@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,8 +11,11 @@
 	
 }
 
+html {
+	
+}
+
 * {
-	/* 	border: 1px solid; */
 	box-sizing: border-box;
 }
 
@@ -49,25 +52,29 @@ a {
 	overflow: auto;
 }
 
-.wrapper>main>h2 {
+.wrapper>main h2 {
 	text-align: center;
 	font-size: 1.8rem;
 	font-weight: 400;
 }
 
-.wrapper>main>table {
+.wrapper>main table {
 	border: 1px solid;
 	border-collapse: collapse;
 	min-width: 500px;
-	min-height: 30px;
+	min-height: 350px;
 	margin: 0 auto;
 }
 
 .wrapper>main table th, .wrapper>main table td {
 	min-width: 80px !important;
-	min-height: 20px !important;
+	min-height: 25px !important;
 	border: 1px solid;
 	text-align: center;
+}
+
+.wrapper>main table th {
+	background-color: lightgray;
 }
 
 .wrapper>footer {
@@ -77,20 +84,22 @@ a {
 
 </head>
 <body>
-	
+
 	<div class="wrapper">
 		<!--  -->
-		<%@include file="/layouts/Header.jsp" %>
-		
+		<%@include file="/layouts/Header.jsp"%>
+
 		<!--  -->
-		<%@include file="/layouts/Nav.jsp" %>
-		
+		<%@include file="/layouts/Nav.jsp"%>
+
 		<main>
+
+			<h2>INDEX</h2>
 		</main>
-		
+
 		<!--  -->
-		<%@include file="/layouts/Footer.jsp" %>
-	
+		<%@include file="/layouts/Footer.jsp"%>
+
 	</div>
 
 </body>

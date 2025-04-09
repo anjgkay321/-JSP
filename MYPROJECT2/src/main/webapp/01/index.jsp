@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,8 +11,11 @@
 	
 }
 
+html {
+	
+}
+
 * {
-	/* 	border: 1px solid; */
 	box-sizing: border-box;
 }
 
@@ -46,28 +49,33 @@ a {
 
 .wrapper>main {
 	height: calc(100vh - 80px - 50px - 80px);
-	overflow: auto;
+	overflow:auto;
 }
 
-.wrapper>main>h2 {
+.wrapper>main h2 {
 	text-align: center;
 	font-size: 1.8rem;
 	font-weight: 400;
 }
 
-.wrapper>main>table {
+.wrapper>main table {
 	border: 1px solid;
 	border-collapse: collapse;
 	min-width: 500px;
-	min-height: 30px;
+	min-height: 350px;
 	margin: 0 auto;
 }
 
 .wrapper>main table th, .wrapper>main table td {
 	min-width: 80px !important;
-	min-height: 20px !important;
+	min-height: 25px !important;
+	max-height: 25px !important;
 	border: 1px solid;
 	text-align: center;
+}
+
+.wrapper>main table th {
+	background-color: lightgray;
 }
 
 .wrapper>footer {
@@ -75,23 +83,20 @@ a {
 }
 </style>
 
+
 </head>
 <body>
-	<%@page
-		import="Utils.*,java.util.*,java.time.LocalDate,java.time.format.DateTimeFormatter,java.text.DecimalFormat"%>
-	<%
-	List<TeacherDto> list = DBUtils.getInstance().selectAllTeacher();
-	%>
+	
 	<div class="wrapper">
 		<!--  -->
-		<%@include file="/layouts/Header.jsp"%>
-
+		<%@include file="/layouts/Header.jsp" %>
+		
 		<!--  -->
-		<%@include file="/layouts/Nav.jsp"%>
-
+		<%@include file="/layouts/Nav.jsp" %>
+		
 		<main>
 			<h2>강사조회</h2>
-
+			<!--  -->
 			<table>
 				<tr>
 					<th>강사코드</th>
@@ -100,32 +105,48 @@ a {
 					<th>수강료</th>
 					<th>강사자격취득일</th>
 				</tr>
+				<%@page import="java.text.DecimalFormat,Utils.*,java.util.*,java.time.*,java.time.format.*" %>		
 				<%
-				for (TeacherDto dto : list) {
+				  List<TeacherDto> list = DBUtils.getInstance().selectAllTeacher();
+				%>
+				<%
+				 for(TeacherDto dto : list)
+				 {
 				%>
 				<tr>
-					<td><%=dto.getTeacher_code()%></td>
-					<td><%=dto.getTeacher_name()%></td>
-					<td><%=dto.getClass_name()%></td>
+					<td><%=dto.getTeacher_code() %></td>
+					<td><%=dto.getTeacher_name() %></td>
+					<td><%=dto.getClass_name() %></td>
+					 
 					<%
-					int price = dto.getClass_price();
-					DecimalFormat formatter = new DecimalFormat("\\#,###,###");
-					out.println("<td>" + formatter.format(price) + "</td>");
+						int price = dto.getClass_price();
+						DecimalFormat fmt = new DecimalFormat("#,###");
 					%>
-					<%-- 	<td><%=dto.getClass_price()%></td> --%>
+	
+					<td><%="\\"+fmt.format(price) %></td>
+					
 					<%
-					out.println("<td>" + LocalDate.parse(dto.getTeacher_regist_date(), DateTimeFormatter.ofPattern("yyyyMMdd"))
-							.format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")) + "</td>");
+						String date = dto.getTeacher_regist_date();
+						//INFMT
+						DateTimeFormatter inFmt = DateTimeFormatter.ofPattern("yyyyMMdd");
+						LocalDate localDate = LocalDate.parse(date,inFmt);
+						//OUTFMT
+						DateTimeFormatter outFmt = DateTimeFormatter.ofPattern("yyyy년MM월dd일");
+						out.print("<td>"+localDate.format(outFmt)+"</td>");
+						
 					%>
+					<%-- <td><%=dto.getTeacher_regist_date() %></td> --%>
 				</tr>
-				<%
-				}
+				<%	 
+				 }
 				%>
-			</table>
-			<!--  -->
-		</main>
-		<%@include file="/layouts/Footer.jsp"%>
 
+			</table>
+		</main>
+		
+		<!--  -->
+		<%@include file="/layouts/Footer.jsp" %>
+	
 	</div>
 
 </body>

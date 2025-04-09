@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,8 +12,11 @@
 	
 }
 
+html {
+	
+}
+
 * {
-	/* 	border: 1px solid; */
 	box-sizing: border-box;
 }
 
@@ -46,28 +50,32 @@ a {
 
 .wrapper>main {
 	height: calc(100vh - 80px - 50px - 80px);
-	overflow: auto;
+	overflow:auto;
 }
 
-.wrapper>main>h2 {
+.wrapper>main h2 {
 	text-align: center;
 	font-size: 1.8rem;
 	font-weight: 400;
 }
 
-.wrapper>main>table {
+.wrapper>main table {
 	border: 1px solid;
 	border-collapse: collapse;
 	min-width: 500px;
-	min-height: 30px;
+	min-height: 350px;
 	margin: 0 auto;
 }
 
 .wrapper>main table th, .wrapper>main table td {
 	min-width: 80px !important;
-	min-height: 20px !important;
+	min-height: 25px !important;
 	border: 1px solid;
 	text-align: center;
+}
+
+.wrapper>main table th {
+	background-color: lightgray;
 }
 
 .wrapper>footer {
@@ -75,8 +83,16 @@ a {
 }
 </style>
 
+
 </head>
 <body>
+	<%@page import="Utils.*,java.util.*,java.time.LocalDate,java.time.format.DateTimeFormatter" %>
+	<%
+		//모든 회원정보 가져오기
+		List<JoinDto>	list = DBUtils.getInstance().selectAllJoin1();
+
+	%>
+
 	
 	<div class="wrapper">
 		<!--  -->
@@ -86,7 +102,106 @@ a {
 		<%@include file="/layouts/Nav.jsp" %>
 		
 		<main>
-		<h2>회원정보조회</h2>
+
+		
+			<h2>회원정보조회</h2>
+			<table>
+				<tr>
+					<th>수강월</th>
+					<th>회원번호</th>
+					<th>회원명</th>
+					<th>강의명</th>
+					<th>강의장소</th>
+					<th>수강료</th>
+					<th>등급</th>
+				</tr>
+				<%
+					for(JoinDto dto : list){
+				%>
+				
+				<tr>
+					<%-- <td><%=dto.getRegist_month() %></td> --%>
+					<%
+					String date = dto.getRegist_month();
+					String yy =date.substring(0,4);
+					String mm = date.substring(4,6);
+					out.println("<td>"+yy + "년"+mm+"월</td>");
+					
+					%>
+					<td><%=dto.getC_no() %></td>
+					<td><%=dto.getC_name() %></td>
+					<td><%=dto.getClass_name() %></td>
+					<td><%=dto.getClass_area() %></td>
+					<%-- <td><%=dto.getTuition() %></td> --%>
+					<%
+					String price= dto.getTuition();
+					int iprice = Integer.parseInt(price);
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					DecimalFormat formatter =new DecimalFormat("\\#,###");
+					out.println("<td>"+formatter.format(iprice)+ "</td>");
+					%>
+					<td><%=dto.getGrade() %></td>
+				</tr>
+				<%
+					}
+				%>
+			</table>
 		</main>
 		
 		<!--  -->
