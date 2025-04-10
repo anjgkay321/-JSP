@@ -14,6 +14,9 @@
 		<input name="password" /><br/>
 		<button>로그인</button>
 	</form>
+	<div>
+		${msg}
+	</div>
 
 </body>
 </html>

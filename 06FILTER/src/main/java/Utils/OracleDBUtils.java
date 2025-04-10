@@ -31,12 +31,12 @@ public class OracleDBUtils {
 	}
 	
 	public int insertUser(UserDto userDto) throws SQLException {
-		String sql="insert into tbl_user2 values (?,?)";
+		String sql="insert into tbl_user2 values (?,?,?)";
 		pstmt = conn.prepareStatement(sql);
 		
 		pstmt.setString(1,userDto.getUsername());
 		pstmt.setString(2, userDto.getPassword());
-		
+		pstmt.setString(3, userDto.getRole());
 		int result = pstmt.executeUpdate();
 		
 		conn.commit();
@@ -64,6 +64,17 @@ public class OracleDBUtils {
 		 
 		return null;
 		
+	}
+	public UserDto selectOne(String username) throws Exception {
+		pstmt = conn.prepareStatement("select * from tbl_user2 where username=?");
+		pstmt.setString(1, username);
+		rs = pstmt.executeQuery();
+		UserDto userDto = null;
+		if(rs!=null) {
+			rs.next();
+			userDto = new UserDto(rs.getString(1),rs.getString(2),rs.getString(3));
+		}
+		return userDto;
 	}
 
 }

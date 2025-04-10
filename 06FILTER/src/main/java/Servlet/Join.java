@@ -17,18 +17,20 @@ public class Join extends HttpServlet {
 	// GET - /join.do - /WEB-INF/user/join.jsp 연결
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("GET 조인");
 		req.getRequestDispatcher("/WEB-INF/user/join.jsp").forward(req, resp);
 	}
 
 	// POST - /join.do - 회원가입처리(username,password 받아 DBUtils를 이용한 DB INSERT)
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("HOST 조인");
 		// 파라미터받기
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 
 		System.out.println("Post /joindo username :" + username);
-		UserDto userDto = new UserDto(username, password);
+		UserDto userDto = new UserDto(username, password,"ROLE_USER");
 		try {
 
 			int result = OracleDBUtils.getInstance().insertUser(userDto);
