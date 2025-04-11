@@ -3,10 +3,8 @@ package Utils;
 public class UserDto {
 	private String username;
 	private String password;
-	private String role;
-	public UserDto() {
-		
-	}
+	private String role;	
+	public UserDto() {}
 	public UserDto(String username, String password, String role) {
 		super();
 		this.username = username;
@@ -35,6 +33,5 @@ public class UserDto {
 	public String toString() {
 		return "UserDto [username=" + username + ", password=" + password + ", role=" + role + "]";
 	}
-
 	
 }

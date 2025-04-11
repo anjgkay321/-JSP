@@ -9,7 +9,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
-/*@WebFilter("/index.do")*/
+//@WebFilter("/index.do")
 public class C01Filter_Test implements Filter{
 
 	@Override
@@ -19,9 +19,9 @@ public class C01Filter_Test implements Filter{
 		System.out.println("[FILTER] INDEX FILTER START...");
 		
 		chain.doFilter(req, resp);
-		//REQUEST 전 처리코드
-		System.out.println("[FILTER] INDEX FILTER END...");
-	
+		
+		//RESPONSE 후 처리코드
+		System.out.println("[FILTER] INDEX FILTER END...");	
 	}
 
 }

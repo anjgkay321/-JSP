@@ -11,14 +11,19 @@ import javax.servlet.ServletResponse;
 public class UTF8_EncodingFilter implements Filter{
 
 	@Override
-	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		
+
 		//전
-		req.setCharacterEncoding("UTF-8");
-		chain.doFilter(req, resp);
+		request.setCharacterEncoding("UTF-8");
+		
+		chain.doFilter(request, response);
+		
 		//후
-		resp.setContentType("text/html; charset=UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		
+		
 	}
 
 }
