@@ -12,26 +12,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Controller.user.UserCreateController;
-
-@WebServlet("/")
+//@WebServlet("/")
 public class FrontController extends HttpServlet {
 	// 서브컨트롤러 저장 자료구조("/endPoint":서브컨트롤러객체)
 	private Map<String, SubController> map = new HashMap();
-
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 
 		ServletContext context = config.getServletContext();
-
-
 		try {
 			// 기본
 			map.put("/", new HomeController());
 			map.put("/index.do", new HomeController());
 			
 			// 인증(/user/*) - 회원CRUD , 로그인 , 로그아웃
-			map.put("/user/create", new UserCreateController());
 			
 			// 도서(/book/*) - 도서CRUD
 			
@@ -40,14 +34,9 @@ public class FrontController extends HttpServlet {
 			throw new ServletException("서브컨트롤러 등록오류");
 		}
 
-
-		
-
 	}
-
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 		try {
 			
 			System.out.println("[FC] service...");
@@ -62,13 +51,10 @@ public class FrontController extends HttpServlet {
 			req.getRequestDispatcher("/WEB-INF/view/error.jsp").forward(req, resp);
 		}
 	}
-
 	// 예외처리함수
 	public void exceptionHandler(Exception e,HttpServletRequest req) {
-		
 		req.setAttribute("status", false);
 		req.setAttribute("message", e.getMessage());
 		req.setAttribute("exception", e);
 	}
-
 }

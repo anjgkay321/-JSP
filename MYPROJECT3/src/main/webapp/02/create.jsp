@@ -6,7 +6,7 @@
 
 
 <!-- 파라미터 받기(액션 태그) -: useBean + :setProperty -->
-<jsp:useBean id="classDto" class="Utils.ClassDto" scope="request" />
+<jsp:useBean id="classDto" class="Utils.classDto" scope="request" />
 <jsp:setProperty name="classDto" property="*" />
 
 <%

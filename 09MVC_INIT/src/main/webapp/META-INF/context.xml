@@ -16,6 +16,14 @@
               maxIdle="2"
               maxWait="5000" /> -->
    	
-
+   	
+   	<!-- CONNECTION POOL(XADataSource) -->
+   	<Resource name="jdbc/MysqlDB"
+          auth="Container"
+          type="javax.sql.XADataSource"
+          factory="Dao.ConnectionPool.MysqlXADataSourceFactory"
+          url="jdbc:mysql://localhost:3306/testDB"
+          user="root"
+          password="1234"/>
    	
 </Context>
