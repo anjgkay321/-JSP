@@ -7,6 +7,8 @@ import java.util.Map;
 import Domain.Dao.BookDao;
 import Domain.Dao.BookDaoImpl;
 import Domain.Dto.BookDto;
+import Domain.Dto.Criteria;
+import Domain.Dto.PageDto;
 
 public class BookServiceImpl {
 
@@ -41,6 +43,30 @@ public class BookServiceImpl {
 		if(list.size()>0) {
 			response.put("status", true);
 			response.put("list", list);
+		}else {
+			response.put("status", false);
+		}
+
+		return response;
+	}
+	
+	public Map<String, Object> getAllBooks(Criteria criteria) throws Exception{
+		Map<String,Object> response = new LinkedHashMap();
+		
+		int offset = (criteria.getPageno()-1) * criteria.getAmount();	
+		
+		//페이지별 건수 
+		List<BookDto> list =  bookDao.selectAll(offset,criteria.getAmount());
+		
+		//PageDto
+		long totalCount = bookDao.count();
+		PageDto pageDto = new PageDto(totalCount,criteria);
+		System.out.println("Service pageDto : " + pageDto);
+		
+		if(list.size()>0) {
+			response.put("status", true);
+			response.put("list", list);
+			response.put("pageDto", pageDto);
 		}else {
 			response.put("status", false);
 		}

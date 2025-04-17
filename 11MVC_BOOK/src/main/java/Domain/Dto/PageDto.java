@@ -23,7 +23,7 @@ public class PageDto {
 	
 	public PageDto() {}
 	
-	public PageDto(int totalcount,Criteria criteria) {
+	public PageDto(long totalcount,Criteria criteria) {
 		
 		
 		this.criteria = criteria;
