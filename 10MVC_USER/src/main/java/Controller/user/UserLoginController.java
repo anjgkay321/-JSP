@@ -15,12 +15,9 @@ public class UserLoginController implements SubController{
 
 	private HttpServletRequest req;
 	private HttpServletResponse resp;
-	
 	private UserServiceImpl userService;
-	
 	public UserLoginController() throws Exception{
 		userService = UserServiceImpl.getInstance();	
-
 	}
 	@SuppressWarnings("deprecation")
 	@Override
@@ -28,8 +25,6 @@ public class UserLoginController implements SubController{
 		this.req = req;
 		this.resp = resp;
 		System.out.println("[SC] UserLoginController execute..");
-		
-
 		try {
 			String uri = req.getMethod();
 			if(uri.equals("GET")) {
@@ -87,11 +82,6 @@ public class UserLoginController implements SubController{
 			req.setAttribute("username_err", "userid의 userid의 첫문자로 숫자가 들어올수 없습니다");
 			return false;
 		}
-		// NULL 체크 / 데이터(자료)수준에서의 의미있는데이터가 포함되어져있는지 여부
-		// userid 은 첫문자가 숫자인지 여부 - /or 길이가 1글자인지 등등..
-		// username 은 첫문자가 숫자인지 여부 -
-		// password 복잡도체크는 Business Layer 체크(Policy 에 의한 처리)
-
 		return true;
 	}
 	// 예외처리함수

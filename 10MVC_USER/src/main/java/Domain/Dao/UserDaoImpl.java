@@ -47,26 +47,14 @@ public class UserDaoImpl extends Dao implements UserDao{
 		}
 	}
 	
- 
+
 	@Override
 	public int update(UserDto userDto) throws SQLException {
-
 		return 0;
 	}
  
 	@Override
 	public int delete(UserDto userDto) throws SQLException {
-//		try {
-//			pstmt = conn.prepareStatement("");
-//			
-//			return pstmt.executeUpdate();
-//			
-//		}catch(SQLException e) {
-//			e.printStackTrace();
-//			throw new SQLException("USERDAO's DELETE SQL EXCEPTION!!");
-//		}finally {
-//			try {pstmt.close();}catch(Exception e2) {}
-//		}
 		return 0;
 	}
 	//단건조회

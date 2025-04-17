@@ -27,8 +27,7 @@ public class BookListController implements SubController{
 		this.req = req;
 		this.resp = resp;
 		System.out.println("[SC] BookListController execute..");
-		
-
+	
 		try {
 
 			//파라미터 
@@ -42,6 +41,7 @@ public class BookListController implements SubController{
 				criteria =new Criteria();	//pageno=1,amount=10,type=null,keyword=null
 			}else {
 				
+				criteria =new Criteria(pageno,10,type,keyword);
 			}
 			
 			//입력값
@@ -64,6 +64,7 @@ public class BookListController implements SubController{
 			
 	
 		}catch(Exception e) {
+			e.printStackTrace();
 			exceptionHandler(e);
 			try {
 				req.getRequestDispatcher("/WEB-INF/view/book/error.jsp").forward(req, resp);

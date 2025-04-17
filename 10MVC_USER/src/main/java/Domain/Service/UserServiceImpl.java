@@ -48,13 +48,10 @@ public class UserServiceImpl {
 	};
 	
 	public Map<String,Object> login(UserDto userDto,HttpSession session) throws Exception {
-		Map<String,Object> response = new LinkedHashMap();
-		
+		Map<String,Object> response = new LinkedHashMap();	
 		boolean isLogin = false;
-		try {
-			
-			//connectionPool.beginTransaction();	
-			
+		try {	
+			//connectionPool.beginTransaction();		
 			UserDto userDb  = userDao.select(userDto.getUsername());	//sql 질의 다수		
 			
 			if(userDb==null) {
