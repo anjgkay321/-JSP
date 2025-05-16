@@ -1,6 +1,13 @@
 package com.example.demo.config;
 
 
+import com.example.demo.config.auth.exceptionHandler.CustomAccessDeniedHandler;
+import com.example.demo.config.auth.exceptionHandler.CustomAuthenticationEntryPoint;
+import com.example.demo.config.auth.loginHandler.CustomLoginFailureHandler;
+import com.example.demo.config.auth.loginHandler.CustomLoginSuccessHandler;
+import com.example.demo.config.auth.logoutHandler.CustomLogoutHandler;
+import com.example.demo.config.auth.logoutHandler.CustomLogoutSuccessHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +19,14 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+	@Autowired
+	private CustomLoginSuccessHandler customLoginSuccessHandler;
+	@Autowired
+	private CustomLogoutHandler customLogoutHandler;
+	@Autowired
+	private CustomLogoutSuccessHandler customLogoutSuccessHandler;
+
 
 	@Bean
 	protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
@@ -31,14 +46,22 @@ public class SecurityConfig {
 		//로그인
 		http.formLogin((login)->{
 			login.permitAll();
-//			login.loginPage("/login");
+			login.loginPage("/login");
+			login.successHandler(customLoginSuccessHandler);
+			login.failureHandler(new CustomLoginFailureHandler());
 		});
 		//로그아웃
 		http.logout((logout)->{
 			logout.permitAll();
+			logout.addLogoutHandler(customLogoutHandler);
+			logout.logoutSuccessHandler(customLogoutSuccessHandler);
 		});
 		//예외처리
-		http.exceptionHandling((ex)->{});
+
+		http.exceptionHandling((ex)->{
+			ex.authenticationEntryPoint(new CustomAuthenticationEntryPoint());
+			ex.accessDeniedHandler(new CustomAccessDeniedHandler());
+		});
 
 		return http.build();
 		
