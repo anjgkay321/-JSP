@@ -1,5 +1,6 @@
 package com.example.demo.C05Naver;
 
+
 import com.example.demo.C04Kakao.C02KakaoLoginController;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -21,24 +22,28 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/naver")
 public class C01NaverLoginController {
 
-    private String NAVER_CLIENT_ID ="QXAdyOp0GT0oalIVadjk";
-    private String NAVER_CLIENT_SECRET="6g_43nNPwB";
-    private String REDIRECT_URL="http://localhost:8090/naver/callback";
-    NaverTokenResponse naverTokenResponse;
+    private String NAVER_CLIENT_ID="";
+    private String NAVER_CLIENT_SECRET="";
+    private String REDIRECT_URL = "http://localhost:8090/naver/callback";
+    private NaverTokenResponse naverTokenResponse;
+
     @GetMapping("/login")
     public String login(){
-        log.info("GET/naver/login");
+        log.info("GET /naver/login...");
         return "redirect:https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id="+NAVER_CLIENT_ID+"&state=STATE_STRING&redirect_uri="+REDIRECT_URL;
     }
     @GetMapping("/callback")
     public String callback(
             @RequestParam("code") String code,
             @RequestParam("state") String state
-    ){
-        log.info("GET/naver/callback");
+            ){
+        log.info("GET /naver/callback..."+code+" " + state);
+
+        //요청 정보 확인
         String url = "https://nid.naver.com/oauth2.0/token";
         //요청 헤더 설정
         HttpHeaders header = new HttpHeaders();
+
         //요청 바디 설정
         MultiValueMap<String,String> params = new LinkedMultiValueMap<>();
         params.add("grant_type","authorization_code");
@@ -52,15 +57,19 @@ public class C01NaverLoginController {
         //요청 후 응답확인
         RestTemplate rt = new RestTemplate();
         ResponseEntity<NaverTokenResponse> response =
-                rt.exchange(url, HttpMethod.POST,entity,NaverTokenResponse.class);
+                rt.exchange(url, HttpMethod.POST,entity, NaverTokenResponse.class);
 
         System.out.println(response.getBody());
-        this.naverTokenResponse =response.getBody();
+        this.naverTokenResponse = response.getBody();
 
         return "redirect:/naver/main";
     }
+
     @GetMapping("/main")
-    public void main(Model model) {
+    public void main(Model model){
+        log.info("GET /naver/main...");
+
+        //정보확인
         String url="https://openapi.naver.com/v1/nid/me";
         //요청헤더
         //요청 헤더 설정
@@ -73,39 +82,46 @@ public class C01NaverLoginController {
 
         //요청->응답
         RestTemplate rt = new RestTemplate();
-        ResponseEntity<NaverProfileResponse> response =rt.exchange(url,HttpMethod.POST,entity,NaverProfileResponse.class);
+        ResponseEntity<NaverProfileResponse> response =rt.exchange(url,HttpMethod.POST,entity, NaverProfileResponse.class);
         System.out.println(response.getBody());
 
         model.addAttribute("profile",response.getBody());
+
     }
 
     @GetMapping("/unlink")
-    public void unlink(){
-        log.info("GET/naver/logout");
+    public void logout(){
+        log.info("GET /naver/logout....");
+
+        //요청 정보 확인
         String url = "https://nid.naver.com/oauth2.0/token";
         //요청 헤더 설정
         HttpHeaders header = new HttpHeaders();
+
         //요청 바디 설정
         MultiValueMap<String,String> params = new LinkedMultiValueMap<>();
         params.add("grant_type","delete");
         params.add("client_id",NAVER_CLIENT_ID);
         params.add("client_secret",NAVER_CLIENT_SECRET);
-        params.add("access_token",this.naverTokenResponse.access_token);
+        params.add("access_token",this.naverTokenResponse.getAccess_token());
+
 
         HttpEntity< MultiValueMap<String,String> > entity = new HttpEntity<>(params,header);
 
         //요청 후 응답확인
         RestTemplate rt = new RestTemplate();
-        ResponseEntity<NaverTokenResponse> response =
-                rt.exchange(url, HttpMethod.POST,entity,NaverTokenResponse.class);
+        ResponseEntity<String> response =
+                rt.exchange(url, HttpMethod.POST,entity, String.class);
 
         System.out.println(response.getBody());
 
+
     }
     @GetMapping("/logout")
-    public String logout(){
+    public String disConnect(){
         return "redirect:https://nid.naver.com/nidlogin.logout?returl=https://www.naver.com/";
     }
+
     @Data
     private static class NaverTokenResponse{
         public String access_token;
@@ -126,5 +142,6 @@ public class C01NaverLoginController {
         public String message;
         public Response response;
     }
+
 
 }

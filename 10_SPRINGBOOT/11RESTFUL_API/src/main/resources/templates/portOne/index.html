@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <button onClick="pay()"> 결제하기</button>
+  |
+  <button onClick="auth()">본인인증</button>
+
+
+  <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+  <script>
+    IMP.init("imp87380722");
+
+    function pay(){
+        const date = new Date();
+        IMP.request_pay({
+          channelKey: "channel-key-eeabb608-3714-40be-b53c-9a40ac08cb93",
+          pay_method: "phone",
+          merchant_uid: "merchant_"+crypto.randomUUID(),
+          name: "테스트 결제",
+          amount: 100,
+          buyer_tel: "010-0000-0000",
+        });
+    }
+    function auth(){
+        const date = new Date();
+        IMP.certification({
+            channelKey: "channel-key-39cab9fe-b827-4565-89c0-1900b38adc6d",
+            merchant_uid: "test_"+date.toString(),
+        },function(resp){console.log(resp);});
+    }
+  </script>
+
+</body>
+</html>
