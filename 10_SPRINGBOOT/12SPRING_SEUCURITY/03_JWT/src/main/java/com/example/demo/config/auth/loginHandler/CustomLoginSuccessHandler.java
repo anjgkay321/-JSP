@@ -42,6 +42,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		cookie.setMaxAge(JwtProperties.ACCESS_TOKEN_EXPIRATION_TIME);
 		cookie.setPath("/");
 		response.addCookie(cookie);
+
 		//JWTTOKEN DB 저장
 		JwtToken jwtToken = new JwtToken();
 		jwtToken.setAccessToken(tokenInfo.getAccessToken());
