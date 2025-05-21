@@ -6,10 +6,12 @@ import java.util.Arrays;
 
 import com.example.demo.config.auth.PrincipalDetails;
 import com.example.demo.config.auth.jwt.JwtProperties;
+import com.example.demo.domain.repository.JwtTokenRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -26,13 +28,22 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 	@Value("${spring.security.oauth2.client.kakao.logout.redirect.uri}")
 	String KAKAO_LOGOUT_REDIRECT_URI;
 
-
+	@Autowired
+	private JwtTokenRepository jwtTokenRepository;
 
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
 		log.info("CustomLogoutSuccessHandler onLogoutSuccess invoke.." + authentication);
 
+		//-----------------------------------
+		// TOKEN을 DB에서 삭제
+		//-----------------------------------
+		String token = Arrays.stream(request.getCookies())
+						.filter(cookie -> cookie.getName().equals(JwtProperties.ACCESS_TOKEN_COOKIE_NAME)).findFirst()
+						.map(cookie -> cookie.getValue())
+						.orElse(null);
+//		jwtTokenRepository.deleteByAccessToken(token);
 
 		//-----------------------------------
 		//발급받은 ACCESS-TOKEN 쿠키제거

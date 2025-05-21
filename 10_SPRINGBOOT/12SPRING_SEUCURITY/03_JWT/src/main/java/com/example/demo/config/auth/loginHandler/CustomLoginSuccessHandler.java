@@ -51,21 +51,20 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		jwtToken.setCreatedAt(LocalDateTime.now());
 		jwtTokenRepository.save(jwtToken);
 
-
-		//		로그인 처리
 		//---------------------------------
 		//최초로그인(Client's AT x , DB x)
 		//---------------------------------
 		//- Client에게 AT 전송
 		//- DB 저장
 		//
-		//
+
+
 		//---------------------------------
 		//기존로그인(Client's AT o , DB o)
 		//---------------------------------
 		//	- AT 만료 x -> 로그인 완료처리
-		//	- AT 만료 o -> RT x -> AT 갱신
-		//	- AT 만료 o -> RT o -> AT,RT새로발급 + DB저장
+		//	- AT 만료 o -> RT x -> AT 갱신 !!!
+		//	- AT 만료 o -> RT o -> AT,RT새로발급(기존 DB갱신)
 		//------------------------------
 		//기존로그인(Client's AT o , DB x)
 		//------------------------------
