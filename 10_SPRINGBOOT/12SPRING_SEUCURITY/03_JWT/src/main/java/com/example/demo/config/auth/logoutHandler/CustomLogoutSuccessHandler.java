@@ -11,6 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Component
@@ -32,6 +34,7 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 	private JwtTokenRepository jwtTokenRepository;
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
 		log.info("CustomLogoutSuccessHandler onLogoutSuccess invoke.." + authentication);
@@ -43,7 +46,7 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 						.filter(cookie -> cookie.getName().equals(JwtProperties.ACCESS_TOKEN_COOKIE_NAME)).findFirst()
 						.map(cookie -> cookie.getValue())
 						.orElse(null);
-//		jwtTokenRepository.deleteByAccessToken(token);
+		jwtTokenRepository.deleteByAccessToken(token);
 
 		//-----------------------------------
 		//발급받은 ACCESS-TOKEN 쿠키제거

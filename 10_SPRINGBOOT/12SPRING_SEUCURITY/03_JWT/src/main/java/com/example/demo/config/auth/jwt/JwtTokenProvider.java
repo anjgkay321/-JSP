@@ -38,6 +38,9 @@ public class JwtTokenProvider {
     public void setKey(Key key){
         this.key = key;
     }
+    public Key getKey(){
+        return this.key;
+    }
 
     //SIGNATURE 저장
     @PostConstruct
