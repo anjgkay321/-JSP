@@ -1,0 +1,43 @@
+my-shopping-app/
+├── public/
+│   ├── index.html
+│   └── assets/          # 이미지, 아이콘, 로고 등 정적 파일
+├── src/
+│   ├── components/      # 재사용 가능한 컴포넌트
+│   │   ├── Header.jsx
+│   │   ├── Footer.jsx
+│   │   ├── ProductCard.jsx
+│   │   ├── ProductList.jsx
+│   │   ├── CartItem.jsx
+│   │   └── ...
+│   ├── pages/           # 페이지 컴포넌트 (라우트 단위)
+│   │   ├── Home.jsx
+│   │   ├── ProductDetail.jsx
+│   │   ├── Cart.jsx
+│   │   ├── Checkout.jsx
+│   │   └── ...
+│   ├── context/         # 컨텍스트 API 관련 파일 (글로벌 상태 관리)
+│   │   ├── CartContext.jsx
+│   │   └── UserContext.jsx
+│   ├── hooks/           # 커스텀 훅
+│   │   ├── useProducts.jsx
+│   │   ├── useCart.jsx
+│   │   └── ...
+│   ├── services/        # API 호출 관련 파일
+│   │   ├── productService.js
+│   │   ├── userService.js
+│   │   └── ...
+│   ├── styles/          # 스타일 파일 (CSS, SCSS 등)
+│   │   ├── App.css
+│   │   ├── Header.css
+│   │   └── ...
+│   ├── utils/           # 유틸리티 함수 모음
+│   │   ├── helpers.js
+│   │   └── formatters.js
+│   ├── App.jsx
+│   ├── index.jsx
+│   └── ...
+├── .env                 # 환경 변수 파일
+├── .gitignore
+├── package.json
+└── README.md

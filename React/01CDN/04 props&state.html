@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- babel 추가 -->
+    <script src="https://unpkg.com/@babel/standalone@7.16.4/babel.min.js"></script>
+
+    <!-- 
+        F5
+    -->
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="root"></div>
+    <hr>
+    <div id="root2"></div>
+    <hr>
+    <div id="root3"></div>
+    <hr>
+    <div id="root4"></div>
+
+    <script type="text/babel">
+        
+        //1 함수형 컴포넌트
+        function Component(props){
+            return (
+                <div>
+                    <h1>{props.message} 이것은 함수로 만든 컴포넌트 입니다.</h1>
+                </div>
+            );
+        }
+        //1 랜더링
+        ReactDOM.render(
+            <Component message="안녕하세요!!" />,
+            document.querySelector("#root")
+        )
+
+        //2 클래스형 컴포넌트
+        class Component2 extends React.Component{
+            render(){
+                return (
+                <div>
+                    <h1>{this.props.message} 이것은 클래스로 만든 컴포넌트 입니다.</h1>
+                </div>
+                );
+            }
+        }
+
+        //2 랜더링(props.message 전달 )
+        ReactDOM.render(
+            <Component2 message="안녕하세요!!" />,
+            document.querySelector("#root2")
+        )
+
+5
+
+       // 3 함수형 컴포넌트 (useState 사용)
+       function FunctionComponentWithState() {
+            const [count, setCount] = React.useState(0);
+
+            React.useEffect(() => {
+                const interval = setInterval(() => {
+                    setCount(prevCount => prevCount + 1);
+                }, 1000);
+                return () => clearInterval(interval); // Cleanup on unmount
+            }, []);
+
+            return (
+                <div>
+                    <h1>이것은 상태를 관리하는 함수형 컴포넌트입니다.</h1>
+                    <p>Count : {count}</p>
+                </div>
+            );
+        }
+
+        // 3 랜더링
+        ReactDOM.render(
+            <FunctionComponentWithState />,
+            document.querySelector("#root3")
+        );
+
+                //4 클래스형 컴포넌트
+        class Component3 extends React.Component{
+            constructor(props){
+                super(props);               //props 초기화
+                this.state = {count : 0};   //state 설정
+            }
+            //브라우저로 랜더링되는(표시되는) html코드 
+            render(){
+                return (
+                    <div>
+                        <h1>{this.props.message} 이것은 클래스로 만든 컴포넌트 입니다.</h1>
+                        <p>Count : {this.state.count}</p>
+                    </div>
+                );
+            }
+            //props 기본값 설정 
+            static defaultProps={
+                message:"기본값!!",
+            }
+            //컴포넌트가 렌더링된 후에 호출되는 생명주기 메소드
+            componentDidMount(){
+                //비동기 함수 1000m/s 뒤에 실행 
+                setInterval(()=>{
+                    //this.setState는 상위클래스에서 물려주는 비동기 함수
+                    //state에 특정 값 주입에 사용됨.
+                    this.setState({
+                        count : this.state.count + 1,
+                    })
+                
+                },1000);
+                
+            }
+        }
+
+        //4 랜더링(props.message 전달 )
+        ReactDOM.render(
+            <Component3 />,
+            document.querySelector("#root4")
+        )
+
+    </script>
+    
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- REACT CDN-->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    
+    <!-- REACTDOM CDN -->
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <title>Document</title>
+</head>
+<body>
+6
+    <div id="root"></div>
+    <button id="btn_plus">btn</button>
+    <script>
+        // 기본 React , ReactDOM 확인 
+         console.log(React);
+         console.log(ReactDOM);
+
+        //Component 생성 
+        //props 인자
+        const Component = props=>{
+            //React.createElement() 이용해서 가상DOM안의 요소 생성
+            //1인자 : 태그명, 
+            //2인자 : 속성을 지정할 수 있는 객체(null은 속성을 지정하지 않음)
+            //3인자 요소의 내용 ${props.message} : ${props.count} 은 props안의 message와 count속성을 가져와문자열로 표현
+            
+            return React.createElement('p',null,`${props.message} : ${props.count} `);
+        }
+        // ReactDOM.render() : 화면(브라우저)에 React Component를 랜더링
+        ReactDOM.render(
+            //React.createElement() : 컴포넌트 생성
+            //1인자 Component   생성할 컴포넌트 
+            //2인자 {message:'init',count:0}    컴포넌트에 주입되는 props
+            //3인자 null    해당 요소의 자식요소,자식요소가 없으면 null
+            React.createElement(Component,{message:'init',count:0},null),
+            //랜더링할 위치, 해당요소 내부에 Component요소가 랜더링 됨
+            document.querySelector("#root")
+        )
+        let cnt = 0;
+        document.querySelector("#btn_plus").addEventListener('click',()=>{
+            ReactDOM.render(
+                React.createElement(Component,{message:"update",count:++cnt},null),
+                document.querySelector("#root")
+            )
+        })
+    </script>
+    
+</body>
+</html>

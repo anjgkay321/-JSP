@@ -1,0 +1,23 @@
+header {
+  min-height: 100px;
+}
+header {
+  .top-header {
+    height : 35px;
+    font-size : .9rem;
+    ul {
+        height : 100%;
+        display:flex;
+        justify-content: right;
+        align-items : center;
+
+        li{
+            padding : 0 15px;
+            border-right:1px solid;
+        }
+        li:last-child{
+            border-right : 0;
+        }
+    }
+  }
+}

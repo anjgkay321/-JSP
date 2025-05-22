@@ -1,0 +1,66 @@
+section:nth-child(1){
+    border : 1px solid;
+
+    display:flex;
+    justify-content: center;
+    align-items: start;
+}
+section:nth-child(1)>.left{
+
+   height : 560px;
+   border : 1px solid;
+
+   display:flex;
+   justify-content: center;
+   align-items: center;
+}
+
+section:nth-child(1)>.left>.slide{
+    width : 560px;
+    height : 100%;
+  
+}
+section:nth-child(1)>.left>.slide>img{
+    width : 100%;
+    height : 100%;
+    object-fit: contain;
+}
+
+
+section:nth-child(1)>.right{
+    width : 100%;
+    height : 560px;
+    border : 1px solid;
+}
+section:nth-child(1)>.right>.info{
+    
+ 
+}
+section:nth-child(1)>.right>.info>*{
+    padding : 10px 20px;
+    border : 1px solid;
+}
+
+
+section:nth-child(1)>.right>.info>.info-01{}
+section:nth-child(1)>.right>.info>.info-02{}
+section:nth-child(1)>.right>.info>.info-03{}
+section:nth-child(1)>.right>.info>.info-04{}
+section:nth-child(1)>.right>.info>.info-05{
+
+}
+section:nth-child(1)>.right>.info>.info-05>ul{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+section:nth-child(1)>.right>.info>.info-05>ul>li{
+    border : 1px solid;
+    width : 100%;
+    height : 100%; 
+    text-align:center;
+}
+section:nth-child(1)>.right>.info>.info-06{}
+section:nth-child(1)>.right>.info>.info-06>a{
+    
+}

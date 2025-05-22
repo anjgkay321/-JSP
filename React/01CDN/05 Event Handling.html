@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- babel 추가 -->
+    <script src="https://unpkg.com/@babel/standalone@7.16.4/babel.min.js"></script>
+
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="root"></div>
+    <div id="root2"></div>
+    
+    <script type="text/babel">
+        
+        //함수 컴포넌트 
+        function Component(){
+            return(
+                <div>
+                    <button onClick={()=>{
+                        console.log("Clicked");
+                    }}>
+                    클릭
+                    </button>
+                </div>
+            )
+        }
+        ReactDOM.render(<Component />,document.querySelector("#root"));
+
+
+        //클래스 컴포넌트
+        class Component2 extends React.Component {
+            state={
+                count : 0,
+            }
+            render(){
+                return (
+                <div>
+                    <p>{this.state.count}</p>
+                    <button onClick={this.click}>
+                    클릭2
+                    </button>
+                </div>
+                );
+            }
+            //click함수 사용시 setState메서드를 통해 state값을 변경
+            //인자로 전달되는 state를 새로운 객체에 복사(...state)
+            //그리고 새로운 객체의 count 속성을 이전 상태의 count 값에 1을 더한 값으로 업데이트
+            //이 코드는 count 속성을 기존 상태의 값에 1을 더한 값으로 업데이트하고, 
+            //그 값을 포함하는 새로운 상태 객체를 생성하는 것입니다. 
+            //이후 React는 이 새로운 상태 객체를 사용하여 컴포넌트를 다시 렌더링합니다.
+            click=()=>{
+                console.log("clickded");
+                this.setState((state)=>({...state,count : state.count + 1,}));
+                console.log(this.setState);
+            
+            }
+
+        }
+
+        ReactDOM.render(<Component2 />,document.querySelector("#root2"));
+
+        //---------------------------
+        // 전개 연산자 ...
+        //---------------------------
+        //React에서 ...은 전개 연산자 (spread operator)로 사용됩니다.
+        //이 연산자는 배열이나 객체의 원소 또는 속성을 펼쳐서 새로운 배열이나 객체를 만들 때 사용됩니다. React에서는 주로 JSX 문법에서 컴포넌트의 속성(props)을 다룰 때 사용되며, 배열이나 객체를 다룰 때도 유용하게 활용됩니다
+
+
+    </script>
+    
+
+    
+    
+</body>
+</html>

@@ -1,0 +1,115 @@
+//@import "../../node_modules/bootstrap/scss/bootstrap.scss" ;
+
+header{
+    height :120px;
+    // border : 1px solid;
+}
+header>.top-header{
+    height : 30px;
+    line-height:30px;
+    width : 100%;
+    // border : 1px solid;
+}
+header>.top-header>ul{
+    display:flex;
+    justify-content: right;
+    align-items: center;
+   
+}
+header>.top-header>ul>li{
+    padding : 0 15px;
+    font-size : .8rem;
+    color : gray;
+   
+}
+header>.top-header>ul>li:last-child{
+    padding-right:0;
+}
+header>.top-header>ul>li>a{
+    display:block;
+}
+header>nav{
+   height : calc(100% - 30px);
+}
+
+
+header>nav>.nav-top{
+    height : 50px;
+    border-bottom : 1px solid;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header>nav>.nav-top>.left{
+    width : 150px;
+    height : 80%;
+    border : 1px solid;
+    display:flex;
+    justify-content: left;
+    align-items: center;
+   
+}
+header>nav>.nav-top>.left>a{
+    width : 100%;
+    height : 100%;
+    display:block;
+    // border : 1px solid;
+    display:flex;
+    justify-content: left;
+    align-items: center;
+}
+header>nav>.nav-top>.right{
+    height : 100%;
+}
+header>nav>.nav-top>.right>ul{
+    height : 100%;
+    display:flex;
+    justify-content: right;
+    align-items: center;
+}
+header>nav>.nav-top>.right>ul>li{
+    padding : 0 15px;
+   
+}
+header>nav>.nav-top>.right>ul>li:last-child{
+    padding-right:0;
+}
+header>nav>.nav-bottom{
+    height : calc(100% - 50px);
+    // border : 1px solid;
+    border-bottom : 1px solid;
+}
+header>nav>.nav-bottom>ul{
+    padding : 0;
+    margin :0;
+    height : 100%;
+    display:flex;
+    justify-content: left;
+    align-items: center;
+}
+header>nav>.nav-bottom>ul>li{
+    padding : 0 15px;
+}
+header>nav>.nav-bottom>ul>li:first-child{
+    padding-left : 0;
+}
+header>nav>.nav-bottom>ul>li>a{
+    display:block;
+}
+
+
+
+.sticky {
+    position: fixed; /* 스크롤할 때 고정되도록 설정 */
+    top: 0;          /* 화면 상단에 고정 */
+    left: 0;
+    right : 0;
+    margin : auto;
+    background-color: white; /* 고정될 때 배경색 */
+    width : 100%;
+    z-index : 10;
+}
+.fixed{
+    width : 1200px;
+    margin : 0 auto;
+}

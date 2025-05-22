@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Functional Component</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const App = (props) => {
+            const [age, setAge] = useState(38);
+            let interval;
+
+            useEffect(() => {
+                console.log("ComponentDidMount");
+                interval = setInterval(() => {
+                    console.log("setInterval");
+                    setAge((prevAge) => prevAge + 1);
+                }, 1000);
+
+                return () => {
+                    console.log('componentWillUnmount');
+                    clearInterval(interval);
+                };
+            }, []);
+
+            useEffect(() => {
+                console.log("render");
+            });
+
+            const handleStop = () => {
+                clearInterval(interval);
+            };
+
+            return (
+                <>
+                    <h2>
+                        Hello {props.name}-{age}
+                    </h2>
+                    <button onClick={handleStop}>중지</button>
+                </>
+            );
+        };
+
+        ReactDOM.render(<App name="Mark" />, document.querySelector("#root"));
+    </script>
+</body>
+</html>

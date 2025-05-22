@@ -1,0 +1,36 @@
+section.product-read{
+    display:flex;
+    justify-content: center;
+    align-items: start;
+
+    height : 100vh;
+
+    div{
+        border:1px solid;
+
+        &.left{
+            width:500px;
+            height:100%;
+
+            .image-block{
+                height:100%;
+                .image{
+                    height : 500px;
+                    display:flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .info{
+                    height:150px;
+                    display:flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+        }
+        &.right{
+            width:calc(100% - 500px);
+            height:100%;
+        }
+    }
+}
